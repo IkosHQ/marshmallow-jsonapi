@@ -195,6 +195,17 @@ class Relationship(BaseRelationship):
 
         return data.get('id')
 
+    def get_value(self, obj, attr, accessor=None, default=missing):
+        """Return ''value'' of object.
+
+        Only valid if resource linkage is ''True'' or relationship is included.
+        """
+
+        if self.include_resource_linkage or self.include_data:
+            return super(Relationship, self).get_value(obj, attr, accessor, default)
+        else:
+            return None
+
     def deserialize(self, value, attr=None, data=None):
         """Deserialize ``value``.
 
